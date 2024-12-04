@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url('https://i.pinimg.com/736x/28/52/99/285299f35fd1237b3004ae554f5ad731.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.login-container {
+    width: 315px;
+    padding: 80px;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-image: url('https://i.pinimg.com/474x/5f/ad/de/5fadde84ffaad79996f038fdb381a2ad.jpg');
+    color: white;
+   
+}
+.login-container h2 {
+    margin-bottom: 20px;
+}
+.input-field {
+    width: 88%;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.login-button {
+    width: 100%;
+    padding: 23px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-bottom: 31px;
+}
+.login-button:hover {
+    background-color: #45a049;
+}
+
+h2{
+    text-align: center;
+    color: white;
+}
+
+.links{
+    text-decoration: none;
+    color: white;
+}
+
+.links:hover{
+    color: chartreuse;
+}

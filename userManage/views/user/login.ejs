@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userlogin.css">
+    <title>Login Page</title>
+    <style>
+        .color-danger {
+          color: red;
+          font-weight: bold;
+          font-size: 18px; 
+        }
+
+        .color-success {
+          color: green;
+          font-weight: bold;
+          font-size: 18px;
+        }
+
+      </style>
+      
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        
+        <p class="color-danger"><%= error_msg ?? "" %></p>
+        <p class="color-success"><%= success_msg ?? "" %></p>
+
+        <form action="/" method="post" id="myform" >
+            <label>Username</label>
+            <input id="username" type="text" name="username" class="input-field" placeholder="Username">
+            <label>Email</label>
+            <input id="email" type="email" name="email" class="input-field" placeholder="Email">
+            <label>Password</label>
+            <input id="password" type="password" name="password" class="input-field" placeholder="Password">
+            <button type="submit" class="login-button">Login</button>
+            <a href="/register"  class="links" >Don't have an account ?</a>
+        </form>
+    </div>
+
+</body>
+</html>

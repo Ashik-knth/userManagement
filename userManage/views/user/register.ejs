@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/userregister.css">
+    <title>Register Form</title>
+    
+</head>
+<body>
+    <div class="registration-container">
+        <h2>Register</h2>
+
+        <p class="color-danger"><%= error_msg ?? "" %></p>
+        
+        <form id="myform" action="/register" method="post">
+            <input id="username" type="text" name="username" class="input-field" placeholder="Username">
+            <input id="email" type="email" name="email" class="input-field" placeholder="Email">
+            <input id="password" type="password" name="password" class="input-field" placeholder="Password">
+            <input id="confirm_password" type="password" name="confirm_password" class="input-field" placeholder="Confirm Password">
+            <button type="submit" class="register-button">Register</button>
+            <a href="/"  class="links" >Already have an account ?</a>
+        </form>
+    </div>
+
+    <script src="/registervalidate.js"></script>
+
+</body>
+</html>

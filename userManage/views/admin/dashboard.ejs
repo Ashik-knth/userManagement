@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous"
+        />
+        <!-- <link rel="stylesheet" href="css/dashboard.css">
+     -->
+        <link rel="stylesheet" href="/public/css/adminlogin.css" />
+
+        <style>
+              .buttons{
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: white;
+        background-color: #007bff;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        margin-left: 12%;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
+
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand"></a>
+                <form class="d-flex" role="search" action="/admin/search" method="post"  >
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search" />
+                    <button class="btn btn-outline-light" style="color: #0056b3; background-color: aqua;"  type="submit">Search</button>
+                </form>
+
+            </div>
+        </nav>
+
+        <!-- <a href="admin/logoutadmin" class="btn btn-primary">Logout</a> -->
+
+        <div class="container mt-4">
+            <div class="dashboard-header">
+                <h1>User Management</h1>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#CreateUser" data-bs-whatever="@mdo">Create User</button>
+                <p class="colors"> <%= success_msg ?? "" %> </p>
+                <p class="colors"> <%= error_msg ?? "" %> </p>
+            </div>
+          
+            <table class="table table-bordered table-hover">
+                <thead class="table-primary">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% user.forEach((element, index) => { %>
+
+                    <tr>
+                        <th scope="row"><%= index + 1 %></th>
+                        <td><%= element.username %></td>
+                        <td><%= element.email %></td>
+                        <td>
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                data-id="<%= element._id %>"
+                                data-username="<%= element.username %>"
+                                data-email="<%= element.email %>"
+                                data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"
+                                data-bs-whatever="@mdo"
+                                id="edit-user-btn"
+                            >
+                                Edit
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteUser('<%= element._id %>')"  >Delete</button>
+                        </td>
+                    </tr>
+                  </tbody>
+                  <% }) %>
+            </table>
+        </div>
+
+
+        <a href="/admin/logoutadmin" class="buttons">Logout</a>
+
+        
+
+        <!-- Edit USER -->
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+              <div class="modal-content">
+                  <form id="editUserForm">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        
+                              
+                          <input type="hidden" id="editUserId" name="id"> 
+                          
+                          <div class="mb-3">
+                              <label for="editUsername" class="form-label">Username</label>
+                              <input type="text" class="form-control" id="editUsername" name="username">
+                          </div>
+                          <div class="mb-3">
+                              <label for="editEmail" class="form-label">Email</label>
+                              <input type="email" class="form-control" id="editEmail" name="email">
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary" onclick="editUser()" >Save changes</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+    
+
+        <!-- Create User -->
+
+        <div class="modal fade" id="CreateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Create User</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="" action="/admin/create-user" method="post" >
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" />
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+
+
+            crossorigin="anonymous"
+        ></script>
+        <script src="/javascript/adminvalidates.js"></script>
+        <!-- Include SweetAlert2 -->
+         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  
+
+
+        <script>
+            document.querySelectorAll("#edit-user-btn").forEach((button) => {
+                button.addEventListener("click", async () => {
+                    const userId = button.getAttribute("data-id"); 
+                    const username = button.getAttribute("data-username"); 
+                    const email = button.getAttribute("data-email"); 
+                    console.log(userId, username, email);
+
+                    
+                    document.querySelector("#editUserId").value = userId; 
+                    document.querySelector("#editUsername").value = username; 
+                    document.querySelector("#editEmail").value = email; 
+                });
+            });
+
+
+        </script>
+    </body>
+</html>
